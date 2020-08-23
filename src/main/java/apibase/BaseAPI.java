@@ -1,4 +1,4 @@
-package APIBase;
+package apibase;
 
 import java.io.IOException;
 

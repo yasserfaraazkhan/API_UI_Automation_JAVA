@@ -6,13 +6,16 @@ import org.apache.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import APIBase.WheatherAPIBase;
-import POJOClasses.WheatherPOJO;
-import baseconfig.BaseAutomationMethods;
+import apibase.WheatherAPIBase;
+import baseconfig.TestHooks;
+import pojoclasses.WheatherPOJO;
 
-public class SeleniumTestCase extends BaseAutomationMethods {
+public class SeleniumTestCase extends TestHooks {
 
 	public static final Logger logger = Logger.getLogger(SeleniumTestCase.class);
+	final String CITY = "Bengaluru";
+	final int STATUS = 200;
+	final String SCHEMA_FILE_NAME = "wheatherschema";
 
 	@Test(priority = 1)
 	public void verifyUserCanUnPinCity() {
@@ -27,12 +30,12 @@ public class SeleniumTestCase extends BaseAutomationMethods {
 
 	@Test(priority = 2)
 	public void verifyUserCanSeeDetailedInformationPinCity() throws IOException {
-		final String CITY = "Bengaluru";
-		int STATUS = 200;
+
 		float temperatureFromAPI;
 		float temperatureFromUI;
 
-		WheatherAPIBase weatherRequest = this.gitCityTemperature(CITY, STATUS);
+		WheatherAPIBase weatherRequest = this.gitCityTemperature(CITY, STATUS, SCHEMA_FILE_NAME);
+
 		WheatherPOJO wheatherResponse = weatherRequest.getAPIResponseAsPOJO(WheatherPOJO.class);
 		temperatureFromAPI = Float.parseFloat(wheatherResponse.getMain());
 

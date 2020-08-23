@@ -1,4 +1,4 @@
-package POJOClasses;
+package pojoclasses;
 
 import java.util.HashMap;
 import java.util.Map;

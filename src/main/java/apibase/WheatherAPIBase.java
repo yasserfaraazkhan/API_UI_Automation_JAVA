@@ -1,6 +1,7 @@
-package APIBase;
+package apibase;
 
 import static io.restassured.RestAssured.given;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import io.restassured.builder.RequestSpecBuilder;
 
@@ -8,6 +9,7 @@ public class WheatherAPIBase extends BaseAPI {
 	protected String accesstoken;
 	protected String cityName;
 	protected String metricSystem;
+	protected String schemaFileName;
 
 	protected String apiPath = "/data/2.5/weather";
 
@@ -30,6 +32,14 @@ public class WheatherAPIBase extends BaseAPI {
 
 	public void setMetricSystem(String metricSystem) {
 		this.metricSystem = metricSystem;
+	}
+
+	public String getSchemaFileName() {
+		return schemaFileName;
+	}
+
+	public void setSchemaFileName(String schemaFileName) {
+		this.schemaFileName = schemaFileName;
 	}
 
 	private RequestSpecBuilder addQueryParam(RequestSpecBuilder requestSpecBuilder) {
@@ -61,7 +71,8 @@ public class WheatherAPIBase extends BaseAPI {
 	protected void validateResponse() {
 		responseSpecBuilder.expectStatusCode(expectedStatusCode); // If this fails we dont need to Deserialize into pojo
 		responseSpecification = responseSpecBuilder.build();
-		apiResponse.then().spec(responseSpecification);
+		apiResponse.then().spec(responseSpecification).assertThat()
+				.body(matchesJsonSchemaInClasspath(String.format("schema/%s.json", this.getSchemaFileName())));
 
 	}
 

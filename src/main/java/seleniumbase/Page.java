@@ -1,4 +1,4 @@
-package SeleniumAndAPI;
+package seleniumbase;
 
 import java.util.List;
 
@@ -160,6 +160,7 @@ public class Page {
 
 	public void openDetailedInformationOfCity(String cITY) {
 		this.getPinnedCity().click();
+		this.waitForVisiblityOfElement(this.getCityInformationModal());
 
 	}
 
