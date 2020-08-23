@@ -1,12 +1,18 @@
 package baseconfig;
 
+import java.io.IOException;
+
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 import SeleniumAndAPI.Page;
+import SeleniumAndAPI.utils.PropertiesManager;
 
 
 
@@ -18,9 +24,12 @@ public abstract class TestHooks {
 
 	// This way if initializing ensured one chrome driver instance is used over all
 	// and saves a lot of space and time
-//	@BeforeTest
+	@BeforeTest
 	@Parameters({ "url" })
-	public void setup(String url) {
+	public void setup(String url) throws IOException {
+
+		PropertyConfigurator.configure(this.getClass().getClassLoader().getResource("testsettings.properties"));
+		PropertiesManager.initializeProperties();
 
 		String chromeDriverPath = "/Users/yasserkhan/Desktop/yasProj/API-Selenium-FrameWork/com.seleniumandapi/drivers/chromedriver" ;
 		System.setProperty("webdriver.chrome.driver", chromeDriverPath);
@@ -31,7 +40,7 @@ public abstract class TestHooks {
 		page.navigate(url);
 	}
 
-//	@AfterTest
+	@AfterTest
 	public void afterTest() {
 		page.tearDown();
 	}

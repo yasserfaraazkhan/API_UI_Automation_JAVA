@@ -1,13 +1,14 @@
 package APIBase;
 
+import java.io.IOException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-
-import java.io.IOException;
 
 /**
  * Created by Yasser Khan on 22-08-2020.

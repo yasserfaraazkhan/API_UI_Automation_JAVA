@@ -164,7 +164,7 @@ public class Page {
 	}
 
 	public String getTemprature() {
-		return this.temperature.getText();
+		return this.temperature.getText().replaceAll("[^0-9]", ""); //extracting integer part of temperature string
 	}
 
 	public void tearDown() {

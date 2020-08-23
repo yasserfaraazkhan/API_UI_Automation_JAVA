@@ -1,12 +1,15 @@
 package APIBase;
 
-import io.restassured.builder.RequestSpecBuilder;
 import static io.restassured.RestAssured.given;
+
+import io.restassured.builder.RequestSpecBuilder;
 
 public class WheatherAPIBase extends BaseAPI {
 	protected String accesstoken;
 	protected String cityName;
-	String apiPath = "/data/2.5/weather";
+	protected String metricSystem;
+
+	protected String apiPath = "/data/2.5/weather";
 
 	public WheatherAPIBase(String baseURI, String accesstoken) {
 		super(baseURI);
@@ -21,11 +24,21 @@ public class WheatherAPIBase extends BaseAPI {
 		this.cityName = cityName;
 	}
 
+	public String getMetricSystem() {
+		return metricSystem;
+	}
+
+	public void setMetricSystem(String metricSystem) {
+		this.metricSystem = metricSystem;
+	}
+
 	private RequestSpecBuilder addQueryParam(RequestSpecBuilder requestSpecBuilder) {
 		if (this.cityName != null) {
 			requestSpecBuilder.addQueryParam("q", cityName);
 		}
 		requestSpecBuilder.addQueryParam("appid", accesstoken);
+		requestSpecBuilder.addQueryParam("units", metricSystem);
+
 		return requestSpecBuilder;
 	}
 

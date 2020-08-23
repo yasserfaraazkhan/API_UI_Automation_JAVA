@@ -5,7 +5,7 @@
   	<parameter name="url" value="https://www.ndtv.com/"></parameter>
  
     <classes>
-     <!-- <class name="SeleniumAndAPI.SeleniumTestCase"/> --> 
+     <class name="SeleniumAndAPI.SeleniumTestCase"/>
       <class name="apitests.APITestCase"/>
     </classes>
   </test> <!-- Test -->
